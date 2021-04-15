@@ -1,7 +1,7 @@
 {
   "name": "time-costs-api",
   "description": "Time&Costs API",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "license": "CC-BY-NC-SA-4.0",
   "main": "dist/index.js",
@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@loopback/authentication": "^7.2.0",
+    "@loopback/authorization": "^0.8.1",
     "@loopback/boot": "^3.3.1",
     "@loopback/core": "^2.15.1",
     "@loopback/repository": "^3.5.1",

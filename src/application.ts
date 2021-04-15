@@ -13,6 +13,12 @@ import {
   AuthenticationComponent,
   AuthenticationOptions,
 } from '@loopback/authentication';
+import {
+  AuthorizationBindings,
+  AuthorizationComponent,
+  AuthorizationDecision,
+  AuthorizationOptions,
+} from '@loopback/authorization';
 import path from 'path';
 import {MySequence} from './sequence';
 
@@ -41,6 +47,12 @@ export class TimeCostsApplication extends BootMixin(
       // defaultMetadata: []
     });
     this.component(AuthenticationComponent);
+
+    // Customize @loopback/authorization configuration here
+    this.configure<AuthorizationOptions>(AuthorizationBindings.COMPONENT).to({
+      defaultDecision: AuthorizationDecision.DENY,
+    });
+    this.component(AuthorizationComponent);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
