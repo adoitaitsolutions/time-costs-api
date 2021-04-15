@@ -1,12 +1,18 @@
-import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
+import {BootMixin} from '@loopback/boot';
+import {ServiceMixin} from '@loopback/service-proxy';
+import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
+  RestExplorerConfig,
 } from '@loopback/rest-explorer';
 import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
-import {ServiceMixin} from '@loopback/service-proxy';
+import {
+  AuthenticationBindings,
+  AuthenticationComponent,
+  AuthenticationOptions,
+} from '@loopback/authentication';
 import path from 'path';
 import {MySequence} from './sequence';
 
@@ -25,10 +31,16 @@ export class TimeCostsApplication extends BootMixin(
     this.static('/', path.join(__dirname, '../public'));
 
     // Customize @loopback/rest-explorer configuration here
-    this.configure(RestExplorerBindings.COMPONENT).to({
+    this.configure<RestExplorerConfig>(RestExplorerBindings.COMPONENT).to({
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
+
+    // Customize @loopback/authentication configuration here
+    this.configure<AuthenticationOptions>(AuthenticationBindings.COMPONENT).to({
+      // defaultMetadata: []
+    });
+    this.component(AuthenticationComponent);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
