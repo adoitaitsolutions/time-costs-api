@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Rol} from './';
 
 @model({
   settings: {
@@ -62,6 +63,14 @@ export class User extends Entity {
   })
   verifiedEmail?: boolean;
 
+  @belongsTo(() => Rol, undefined, {
+    postgresql: {
+      columnName: 'rol_id',
+    },
+    default: 2,
+  })
+  rolId: number;
+
   @property({
     type: 'date',
     postgresql: {
@@ -77,6 +86,7 @@ export class User extends Entity {
 
 export interface UserRelations {
   // describe navigational properties here
+  rol: Rol; // User belongsTo Rol
 }
 
 export type UserWithRelations = User & UserRelations;
